@@ -1,4 +1,7 @@
+// JavaScript for theme toggle (optional)
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Welcome to my portfolio!");
-  // Add more JavaScript interactions if needed
+  const toggleButton = document.querySelector("#themeToggle");
+  toggleButton.addEventListener("click", () => {
+    document.body.classList.toggle("dark-theme");
+  });
 });
