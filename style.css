@@ -239,6 +239,22 @@ header nav a:hover {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
+.company-link {
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.company-link:hover {
+    background: #2980b9;
+}
+
 /* Footer */
 footer {
     text-align: center;
