@@ -4,8 +4,12 @@ document.addEventListener("DOMContentLoaded", function () {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const target = document.querySelector(e.target.getAttribute("href"));
+      const offset = 60;
+      const elementPosition = target.offsetTop;
+      const offsetPosition = elementPosition - offset;
+
       window.scrollTo({
-        top: target.offsetTop,
+        top: offsetPosition,
         behavior: "smooth",
       });
     });
