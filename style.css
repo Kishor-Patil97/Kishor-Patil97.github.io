@@ -145,7 +145,7 @@ body.dark-mode .dark-mode-toggle:hover {
 }
 
 /* Responsive Styles for Mobile Screens */
-@media (max-width: 768px) {
+@media (max-width: 940px) {
 
     /* Show Hamburger Icon */
     .hamburger {
@@ -217,6 +217,14 @@ body.dark-mode .dark-mode-toggle:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
+.btn-linkedin {
+    background: #0077b5;
+}
+
+.btn-linkedin:hover {
+    background: #005582;
+}
+
 .btn-github {
     background: #333;
 }
@@ -225,12 +233,12 @@ body.dark-mode .dark-mode-toggle:hover {
     background: #444;
 }
 
-.btn-linkedin {
-    background: #0077b5;
+.btn-xing {
+    background: #126567;
 }
 
-.btn-linkedin:hover {
-    background: #005582;
+.btn-xing:hover {
+    background: #0a4244;
 }
 
 /* Section Styling */
