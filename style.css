@@ -931,7 +931,40 @@ footer {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .navbar-container {
+        padding: 0 20px;
+    }
+    
+    .nav-links {
+        gap: 20px;
+    }
+    
+    .profile h1 {
+        font-size: 2.2rem;
+    }
+    
+    .section h2 {
+        font-size: 2.2rem;
+    }
+    
+    .skills-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    
+    .projects-container,
+    .documents-container {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+}
+
 @media (max-width: 768px) {
+    header {
+        padding: 100px 15px 50px;
+    }
+    
     .navbar-container {
         padding: 0 15px;
     }
@@ -941,8 +974,8 @@ footer {
     }
     
     .nav-links {
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 70px;
         left: 0;
         right: 0;
         background: var(--bg-card);
@@ -955,6 +988,9 @@ footer {
         visibility: hidden;
         transition: var(--transition);
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+        z-index: 999;
     }
     
     .nav-links.active {
@@ -963,12 +999,54 @@ footer {
         visibility: visible;
     }
     
+    .nav-links a {
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+    }
+    
     .profile h1 {
         font-size: 2rem;
     }
     
+    .profile h3 {
+        font-size: 1.1rem;
+    }
+    
+    .section {
+        padding: 60px 20px;
+    }
+    
     .section h2 {
         font-size: 2rem;
+        margin-bottom: 30px;
+    }
+    
+    .about-text p {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    
+    .skills-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .skill-card {
+        padding: 20px;
+    }
+    
+    .skill-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .education-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .education-card {
+        padding: 25px;
     }
     
     .timeline::before {
@@ -978,6 +1056,7 @@ footer {
     .timeline-card {
         width: calc(100% - 50px);
         margin-left: 50px;
+        margin-bottom: 30px;
     }
     
     .timeline-card:nth-child(even) {
@@ -999,14 +1078,75 @@ footer {
         border-left-color: transparent !important;
     }
     
+    .timeline-content {
+        padding: 20px;
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .timeline-content ul {
+        margin-top: 15px;
+    }
+    
+    .timeline-content li {
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+    
+    .projects-container,
+    .documents-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .project-card,
+    .document-card {
+        padding: 25px;
+    }
+    
+    .project-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .project-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .document-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .document-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .contact-item {
+        padding: 20px;
+        text-align: center;
+    }
+    
     .buttons {
         flex-direction: column;
         align-items: center;
+        gap: 15px;
     }
     
     .btn {
-        width: 200px;
+        width: 250px;
         justify-content: center;
+        padding: 15px 24px;
+        font-size: 1rem;
     }
     
     .scroll-to-top {
@@ -1019,21 +1159,33 @@ footer {
 }
 
 @media (max-width: 480px) {
+    header {
+        padding: 80px 10px 40px;
+    }
+    
     .profile img {
-        width: 150px;
-        height: 150px;
+        width: 140px;
+        height: 140px;
+        margin-bottom: 15px;
     }
     
     .profile h1 {
         font-size: 1.8rem;
+        margin-bottom: 8px;
+    }
+    
+    .profile h3 {
+        font-size: 1rem;
+        margin-bottom: 25px;
     }
     
     .section {
-        padding: 60px 0;
+        padding: 50px 15px;
     }
     
     .section h2 {
         font-size: 1.8rem;
+        margin-bottom: 25px;
     }
     
     .about-text,
@@ -1046,9 +1198,202 @@ footer {
         padding: 20px;
     }
     
-    .projects-container,
-    .documents-container,
-    .contact-container {
-        grid-template-columns: 1fr;
+    .about-text p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .skill-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .skill-card p {
+        font-size: 0.9rem;
+    }
+    
+    .education-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .education-card p {
+        font-size: 0.9rem;
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .timeline-content p {
+        font-size: 0.9rem;
+    }
+    
+    .timeline-content li {
+        font-size: 0.9rem;
+    }
+    
+    .project-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .project-card p {
+        font-size: 0.9rem;
+    }
+    
+    .document-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 280px;
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .nav-links {
+        padding: 15px;
+    }
+    
+    .nav-links a {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
+    
+    .scroll-to-top {
+        bottom: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 360px) {
+    header {
+        padding: 70px 8px 35px;
+    }
+    
+    .profile img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .profile h1 {
+        font-size: 1.6rem;
+    }
+    
+    .profile h3 {
+        font-size: 0.9rem;
+    }
+    
+    .section {
+        padding: 40px 10px;
+    }
+    
+    .section h2 {
+        font-size: 1.6rem;
+    }
+    
+    .about-text,
+    .skill-card,
+    .education-card,
+    .timeline-content,
+    .project-card,
+    .document-card,
+    .contact-item {
+        padding: 15px;
+    }
+    
+    .about-text p {
+        font-size: 0.9rem;
+    }
+    
+    .skill-card h3 {
+        font-size: 1rem;
+    }
+    
+    .skill-card p {
+        font-size: 0.85rem;
+    }
+    
+    .education-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .education-card p {
+        font-size: 0.85rem;
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.1rem;
+    }
+    
+    .timeline-content p {
+        font-size: 0.85rem;
+    }
+    
+    .timeline-content li {
+        font-size: 0.85rem;
+    }
+    
+    .project-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .project-card p {
+        font-size: 0.85rem;
+    }
+    
+    .document-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .btn {
+        padding: 10px 18px;
+        font-size: 0.85rem;
+    }
+    
+    .scroll-to-top {
+        bottom: 10px;
+        right: 10px;
+        width: 35px;
+        height: 35px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Landscape orientation fixes for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    header {
+        padding: 60px 15px 30px;
+    }
+    
+    .profile img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .profile h1 {
+        font-size: 1.8rem;
+    }
+    
+    .profile h3 {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .nav-links {
+        max-height: 60vh;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .profile img {
+        border-width: 3px;
+    }
+    
+    .timeline-icon {
+        border-width: 2px;
     }
 }
