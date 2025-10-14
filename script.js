@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeParallaxEffects();
   initializeSkillAnimations();
   initializeTimelineAnimations();
+  initializeContactForm();
 });
 
 // Smooth scrolling for navigation links
@@ -414,3 +415,236 @@ function addScrollProgressIndicator() {
 
 // Initialize scroll progress indicator
 addScrollProgressIndicator();
+
+// Contact Form Functionality
+function initializeContactForm() {
+  const form = document.getElementById("contact-form");
+  const statusDiv = document.getElementById("form-status");
+
+  if (!form) return;
+
+  // Initialize EmailJS
+  emailjs.init("y25HF1Bnk0Db4rSq3"); // You'll need to replace this with your actual EmailJS public key
+
+  // Real-time validation
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("email");
+  const phoneInput = document.getElementById("phone");
+  const messageInput = document.getElementById("message");
+
+  // Set initial border colors to neutral
+  [nameInput, emailInput, phoneInput, messageInput].forEach((input) => {
+    input.style.borderColor = "rgba(102, 126, 234, 0.2)";
+  });
+
+  // Email validation regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Phone validation regex (optional field)
+  const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+
+  // Validate name
+  nameInput.addEventListener("blur", function () {
+    const nameError = document.getElementById("name-error");
+    if (this.value.trim().length < 2) {
+      showError(nameError, "Name must be at least 2 characters long");
+      this.style.borderColor = "#e53e3e";
+    } else {
+      clearError(nameError);
+      this.style.borderColor = "#38a169";
+    }
+  });
+
+  // Validate email
+  emailInput.addEventListener("blur", function () {
+    const emailError = document.getElementById("email-error");
+    if (!emailRegex.test(this.value)) {
+      showError(emailError, "Please enter a valid email address");
+      this.style.borderColor = "#e53e3e";
+    } else {
+      clearError(emailError);
+      this.style.borderColor = "#38a169";
+    }
+  });
+
+  // Validate phone (optional)
+  phoneInput.addEventListener("blur", function () {
+    const phoneError = document.getElementById("phone-error");
+    if (this.value.trim() && !phoneRegex.test(this.value.replace(/\s/g, ""))) {
+      showError(phoneError, "Please enter a valid phone number");
+      this.style.borderColor = "#e53e3e";
+    } else {
+      clearError(phoneError);
+      this.style.borderColor = this.value.trim()
+        ? "#38a169"
+        : "rgba(102, 126, 234, 0.2)";
+    }
+  });
+
+  // Validate message
+  messageInput.addEventListener("blur", function () {
+    const messageError = document.getElementById("message-error");
+    if (this.value.trim().length < 10) {
+      showError(messageError, "Message must be at least 10 characters long");
+      this.style.borderColor = "#e53e3e";
+    } else {
+      clearError(messageError);
+      this.style.borderColor = "#38a169";
+    }
+  });
+
+  // Form submission
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Clear previous status
+    clearStatus();
+
+    // Validate all fields
+    let isValid = true;
+
+    // Validate name
+    if (nameInput.value.trim().length < 2) {
+      showError(
+        document.getElementById("name-error"),
+        "Name must be at least 2 characters long"
+      );
+      nameInput.style.borderColor = "#e53e3e";
+      isValid = false;
+    }
+
+    // Validate email
+    if (!emailRegex.test(emailInput.value)) {
+      showError(
+        document.getElementById("email-error"),
+        "Please enter a valid email address"
+      );
+      emailInput.style.borderColor = "#e53e3e";
+      isValid = false;
+    }
+
+    // Validate phone (optional)
+    if (
+      phoneInput.value.trim() &&
+      !phoneRegex.test(phoneInput.value.replace(/\s/g, ""))
+    ) {
+      showError(
+        document.getElementById("phone-error"),
+        "Please enter a valid phone number"
+      );
+      phoneInput.style.borderColor = "#e53e3e";
+      isValid = false;
+    }
+
+    // Validate message
+    if (messageInput.value.trim().length < 10) {
+      showError(
+        document.getElementById("message-error"),
+        "Message must be at least 10 characters long"
+      );
+      messageInput.style.borderColor = "#e53e3e";
+      isValid = false;
+    }
+
+    if (!isValid) {
+      showStatus("Please fix the errors above", "error");
+      return;
+    }
+
+    // Show loading state
+    showStatus("Sending message...", "loading");
+    const submitBtn = form.querySelector(".btn-submit");
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+    // Prepare form data
+    const formData = {
+      name: nameInput.value.trim(),
+      email: emailInput.value.trim(),
+      phone: phoneInput.value.trim() || "Not provided",
+      message: messageInput.value.trim(),
+    };
+
+    // Send email using EmailJS (you'll need to set this up)
+    sendEmail(formData)
+      .then(() => {
+        showStatus(
+          "Message sent successfully! I'll get back to you soon.",
+          "success"
+        );
+        form.reset();
+        // Reset border colors
+        [nameInput, emailInput, phoneInput, messageInput].forEach((input) => {
+          input.style.borderColor = "rgba(102, 126, 234, 0.2)";
+        });
+        // Clear all error messages
+        document
+          .querySelectorAll(".error-message")
+          .forEach((error) => clearError(error));
+      })
+      .catch((error) => {
+        console.error("Error sending email:", error);
+        showStatus(
+          "Failed to send message. Please try again or contact me directly at kishor.p97@gmail.com",
+          "error"
+        );
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+      });
+  });
+}
+
+// Email sending function using EmailJS
+async function sendEmail(formData) {
+  try {
+    // EmailJS service configuration
+    const serviceID = "service_90y8tx5"; // Replace with your EmailJS service ID
+    const templateID = "template_elcd5ko"; // Replace with your EmailJS template ID
+
+    // Prepare template parameters
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      phone: formData.phone,
+      message: formData.message,
+      to_email: "kishor.p97@gmail.com",
+    };
+
+    // Send email using EmailJS
+    const response = await emailjs.send(serviceID, templateID, templateParams);
+
+    if (response.status === 200) {
+      return Promise.resolve();
+    } else {
+      throw new Error("Failed to send email");
+    }
+  } catch (error) {
+    console.error("EmailJS Error:", error);
+    throw error;
+  }
+}
+
+// Helper functions
+function showError(errorElement, message) {
+  errorElement.textContent = message;
+  errorElement.style.display = "block";
+}
+
+function clearError(errorElement) {
+  errorElement.textContent = "";
+  errorElement.style.display = "none";
+}
+
+function showStatus(message, type) {
+  const statusDiv = document.getElementById("form-status");
+  statusDiv.textContent = message;
+  statusDiv.className = `form-status ${type}`;
+}
+
+function clearStatus() {
+  const statusDiv = document.getElementById("form-status");
+  statusDiv.textContent = "";
+  statusDiv.className = "form-status";
+}
